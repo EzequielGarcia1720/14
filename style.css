@@ -1,46 +1,115 @@
+/* 1. Limpieza básica */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
 }
 
-body {
-    position: relative;
+body, html {
     width: 100%;
-    min-height: 100vh;
-    display: flex;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* Evita que el scroll arruine la sorpresa */
+}
+
+/* 2. EL FONDO DE CORAZONES (El div de Tenor que pusiste antes) */
+.fondo-corazones {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    display: flex; /* Centra el GIF si la pantalla no coincide */
     justify-content: center;
     align-items: center;
-    background-color: #ffe5e5;
+    aspect-ratio: 16 / 9 !important; /* Cambia a 9 / 16 para móvil */
 }
 
+.fondo-corazones .tenor-gif-embed {
+    /* AQUÍ ELIGES LA PROPORCIÓN */
+    
+    width: 100% !important;
+    height: auto !important; /* Permite que la altura se calcule por la proporción */
+    min-height: 100vh; /* Asegura que cubra el alto si es 9:16 */
+    min-width: 100vw;  /* Asegura que cubra el ancho si es 16:9 */
+}
+
+.fondo-corazones iframe {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important; /* Estira el contenido dentro del ratio */
+}
+
+/* Si la pantalla es vertical (Móviles) */
+@media (max-aspect-ratio: 1/1) {
+    .fondo-corazones {
+        aspect-ratio: 9 / 16 !important;
+    }
+}
+/* 3. EL CONTENIDO (Capa de arriba) */
 .container {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    max-width: 500px;
-    margin: 20px;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+    /* Fondo oscuro suave para leer mejor */
+    background-color: rgba(0, 0, 0, 0.2); 
 }
 
+/* Ajuste del gatito Mochi */
 .container .tenor-gif-embed {
-    display: flex;
-    max-width: 200px;
+    max-width: 250px; /* Para que el gato no sea gigante */
+    margin-bottom: 20px;
+}
+.tenor-gif-embed iframe {
+    border-radius: 10%;
 }
 
-.container .btn {
+h1 {
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    margin-bottom: 15px;
+}
+
+p {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* 4. BOTONES */
+.btn {
     display: flex;
-    gap: 25px;
+    gap: 20px;
 }
 
 .btn a {
     text-decoration: none;
-    color: #111;
-    background: #fff;
-    padding: 10px 25px;
-    border-radius: 8px;
-    box-shadow: 0.5rem 1rem 3rem hsl(0, 0, 0,0.3);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
 
+.btn a:first-child {
+    background-color: #ff4d6d; /* Rosa/Rojo */
+    color: white;
+}
+
+.btn a:last-child {
+    background-color: #eee;
+    color: #333;
+}
+
+.btn a:hover {
+    transform: scale(1.1);
 }
